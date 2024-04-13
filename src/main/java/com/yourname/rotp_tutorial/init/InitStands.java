@@ -1,9 +1,9 @@
 package com.yourname.rotp_tutorial.init;
 
+import com.github.standobyte.jojo.util.mod.StoryPart;
 import com.yourname.rotp_tutorial.RotpTutorialAddon;
 import com.yourname.rotp_tutorial.entity.stand.stands.TutorialStandEntity;
 import com.github.standobyte.jojo.action.Action;
-import com.github.standobyte.jojo.action.stand.StandAction;
 import com.github.standobyte.jojo.action.stand.StandEntityAction;
 import com.github.standobyte.jojo.action.stand.StandEntityAction.Phase;
 import com.github.standobyte.jojo.action.stand.StandEntityBlock;
@@ -11,9 +11,7 @@ import com.github.standobyte.jojo.action.stand.StandEntityHeavyAttack;
 import com.github.standobyte.jojo.action.stand.StandEntityLightAttack;
 import com.github.standobyte.jojo.action.stand.StandEntityMeleeBarrage;
 import com.github.standobyte.jojo.entity.stand.StandEntityType;
-import com.github.standobyte.jojo.entity.stand.StandPose;
 import com.github.standobyte.jojo.init.power.stand.EntityStandRegistryObject;
-import com.github.standobyte.jojo.init.power.stand.ModStandsInit;
 import com.github.standobyte.jojo.power.impl.stand.StandInstance.StandPart;
 import com.github.standobyte.jojo.power.impl.stand.stats.StandStats;
 import com.github.standobyte.jojo.power.impl.stand.type.EntityStandType;
@@ -21,6 +19,8 @@ import com.github.standobyte.jojo.power.impl.stand.type.StandType;
 
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
+
+import static com.github.standobyte.jojo.init.ModEntityTypes.ENTITIES;
 
 public class InitStands {
     @SuppressWarnings("unchecked")
@@ -58,36 +58,36 @@ public class InitStands {
     
     public static final RegistryObject<StandEntityAction> TUTORIAL_STAND_BLOCK = ACTIONS.register("tutorial_stand_block", 
             () -> new StandEntityBlock());
-    
-    
-    public static final EntityStandRegistryObject<EntityStandType<StandStats>, StandEntityType<TutorialStandEntity>> STAND_TUTORIAL_STAND = 
-            new EntityStandRegistryObject<>("tutorial_stand", 
-                    STANDS, 
-                    () -> new EntityStandType<StandStats>(
-                            0xFFFFFF, ModStandsInit.PART_6_NAME,
 
-                            new StandAction[] {
-                                    TUTORIAL_STAND_PUNCH.get(), 
-                                    TUTORIAL_STAND_BARRAGE.get()},
-                            new StandAction[] {
-                                    TUTORIAL_STAND_BLOCK.get()},
 
-                            StandStats.class, new StandStats.Builder()
-                            .tier(6)
-                            .power(16.0)
-                            .speed(16.0)
-                            .range(50.0, 100.0)
-                            .durability(16.0)
-                            .precision(16.0)
-                            .build("Tutorial Stand"), 
-
-                            new StandType.StandTypeOptionals()
+    public static final EntityStandRegistryObject<EntityStandType<StandStats>, StandEntityType<TutorialStandEntity>> STAND_TUTORIAL_STAND =
+            new EntityStandRegistryObject<>("tutorial_stand",
+                    STANDS,
+                    () -> new EntityStandType.Builder<>()
+                            .color(0xFFFFFF)
+                            .storyPartName(StoryPart.OTHER.getName())
+                            .leftClickHotbar(
+                                    TUTORIAL_STAND_PUNCH.get(),
+                                    TUTORIAL_STAND_BARRAGE.get()
+                            )
+                            .rightClickHotbar(
+                                    TUTORIAL_STAND_BLOCK.get()
+                            )
+                            .defaultStats(StandStats.class, new StandStats.Builder()
+                                    .power(16.0)
+                                    .speed(16.0)
+                                    .range(50.0, 100.0)
+                                    .durability(16.0)
+                                    .precision(16.0)
+                                    .randomWeight(1)
+                            )
                             .addSummonShout(InitSounds.USER_TUTORIAL_STAND)
-                            .addOst(InitSounds.TUTORIAL_STAND_OST)), 
+                            .addOst(InitSounds.TUTORIAL_STAND_OST)
+                            .build(),
 
-                    InitEntities.ENTITIES, 
+                    ENTITIES,
                     () -> new StandEntityType<TutorialStandEntity>(TutorialStandEntity::new, 0.65F, 1.95F)
-                    .summonSound(InitSounds.TUTORIAL_STAND_SUMMON)
-                    .unsummonSound(InitSounds.TUTORIAL_STAND_UNSUMMON))
-            .withDefaultStandAttributes();
+                            .summonSound(InitSounds.TUTORIAL_STAND_SUMMON)
+                            .unsummonSound(InitSounds.TUTORIAL_STAND_UNSUMMON))
+                    .withDefaultStandAttributes();
 }
