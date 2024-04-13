@@ -1,9 +1,0 @@
-{
-  "entity.rotp_tutorial.tutorial_stand": "Tutorial Stand",
-  "stand.rotp_tutorial.tutorial_stand": "Tutorial Stand",
-  "action.rotp_tutorial.tutorial_stand_punch": "Punch",
-  "action.rotp_tutorial.tutorial_stand_heavy_punch": "Heavy Punch",
-  "action.rotp_tutorial.tutorial_stand_barrage": "Barrage",
-  "action.rotp_tutorial.tutorial_stand_block": "Block",
-  "rotp_tutorial.subtitle.tutorial_stand_name": "\"Tutorial Stand\""
-}
