@@ -65,7 +65,7 @@ public class InitStands {
                     STANDS,
                     () -> new EntityStandType.Builder<>()
                             .color(0xFFFFFF)
-                            .storyPartName(StoryPart.OTHER.getName())
+                            .storyPartName(StoryPart.DIAMOND_IS_UNBREAKABLE.getName())
                             .leftClickHotbar(
                                     TUTORIAL_STAND_PUNCH.get(),
                                     TUTORIAL_STAND_BARRAGE.get()
